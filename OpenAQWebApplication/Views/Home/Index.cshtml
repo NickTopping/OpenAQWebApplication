@@ -1,7 +1,30 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using OpenAQ;
+@using OpenAQ.Models.City;
+@using OpenAQ.Models.Country;
+@using OpenAQ.Models.Measurements;
+@using RestSharp;
+@using System.Web.Mvc;
+@using System.Collections.Generic;
+@using OpenAQWebApp.Models.Country;
+
+@*<script src="~/Scripts/script.js"></script>*@
+
+@model CountryModel
+@{
+    ViewBag.Title = "Index";
 }
 
-<div>
-    <h1>test page</h1>
+<h2>Index</h2>
+
+<div class="wrapper" style="margin-top:10px;">
+    <h1>OpenAQ</h1>
+
+    @Html.DropDownListFor(m => m.SelectedCountryCode, Model.CountryDropdownItems)
+
+    @*@foreach (var item in Model.CountryInfo)
+    {
+        <h2>@item.Code</h2>
+        <h2>@item.Name</h2>
+    }*@
+
 </div>
