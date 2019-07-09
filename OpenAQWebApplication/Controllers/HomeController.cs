@@ -2,9 +2,10 @@
 using OpenAQ.Models.City;
 using OpenAQ.Models.Country;
 using OpenAQ.Models.Measurements;
+using OpenAQWebApp.Models.Country;
+using OpenAQWebApplication.Models.City;
 using OpenAQWebApplication.ViewModels;
 using RestSharp;
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -14,23 +15,40 @@ namespace OpenAQWebApp.Controllers
     {
         public ActionResult Index()
         {
-            AreaSelectionViewModel areaSelectionViewModel = new AreaSelectionViewModel();
+            var countryInfoList = GetCountriesRequest();
+            var countryDropdownList = new List<SelectListItem>();
 
-            areaSelectionViewModel.CountryModel.CountryInfo = GetCountriesRequest();
-
-            foreach (var country in areaSelectionViewModel.CountryModel.CountryInfo)
+            foreach (var country in countryInfoList)
             {
-                areaSelectionViewModel.CountryModel.CountryDropdownItems.Add(new SelectListItem() { Text = country.Name, Value = country.Code });
+                countryDropdownList.Add(new SelectListItem() { Text = country.Name, Value = country.Code });
             }
 
-            var selectedCountryCode = areaSelectionViewModel.CountryModel.SelectedCountryCode;
-
-            areaSelectionViewModel.CityModel.CityInfo = GetCitiesRequest(selectedCountryCode);
-
-            foreach (var city in areaSelectionViewModel.CityModel.CityInfo)
+            CountryModel countryModel = new CountryModel
             {
-                areaSelectionViewModel.CityModel.CityDropdownItems.Add(new SelectListItem() { Text = city.City, Value = city.City });
+                CountryInfo = countryInfoList,
+                CountryDropdownItems = countryDropdownList
+            };
+
+            var selectedCountryCode = "AU";
+            var cityInfoList = GetCitiesRequest(selectedCountryCode);
+            var cityDropdownList = new List<SelectListItem>();
+
+            foreach (var city in cityInfoList)
+            {
+                cityDropdownList.Add(new SelectListItem() { Text = city.City, Value = city.City });
             }
+
+            CityModel cityModel = new CityModel
+            {
+                CityInfo = cityInfoList,
+                CityDropdownItems = cityDropdownList
+            };
+
+            AreaSelectionViewModel areaSelectionViewModel = new AreaSelectionViewModel()
+            {
+                CountryModel = countryModel,
+                CityModel = cityModel
+            };
 
             return View(areaSelectionViewModel);
         }
