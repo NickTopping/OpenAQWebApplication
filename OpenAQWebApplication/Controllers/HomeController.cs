@@ -2,8 +2,9 @@
 using OpenAQ.Models.City;
 using OpenAQ.Models.Country;
 using OpenAQ.Models.Measurements;
-using OpenAQWebApp.Models.Country;
+using OpenAQWebApplication.ViewModels;
 using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -13,15 +14,25 @@ namespace OpenAQWebApp.Controllers
     {
         public ActionResult Index()
         {
-            CountryModel model = new CountryModel();
-            model.CountryInfo = GetCountriesRequest();
+            AreaSelectionViewModel areaSelectionViewModel = new AreaSelectionViewModel();
 
-            foreach (var country in model.CountryInfo)
+            areaSelectionViewModel.CountryModel.CountryInfo = GetCountriesRequest();
+
+            foreach (var country in areaSelectionViewModel.CountryModel.CountryInfo)
             {
-                model.CountryDropdownItems.Add(new SelectListItem() { Text = country.Name, Value = country.Code });
+                areaSelectionViewModel.CountryModel.CountryDropdownItems.Add(new SelectListItem() { Text = country.Name, Value = country.Code });
             }
 
-            return View(model);
+            var selectedCountryCode = areaSelectionViewModel.CountryModel.SelectedCountryCode;
+
+            areaSelectionViewModel.CityModel.CityInfo = GetCitiesRequest(selectedCountryCode);
+
+            foreach (var city in areaSelectionViewModel.CityModel.CityInfo)
+            {
+                areaSelectionViewModel.CityModel.CityDropdownItems.Add(new SelectListItem() { Text = city.City, Value = city.City });
+            }
+
+            return View(areaSelectionViewModel);
         }
 
         public static List<CountryInfo> GetCountriesRequest()

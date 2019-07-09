@@ -6,10 +6,11 @@
 @using System.Web.Mvc;
 @using System.Collections.Generic;
 @using OpenAQWebApp.Models.Country;
+@using OpenAQWebApplication.ViewModels;
 
 @*<script src="~/Scripts/script.js"></script>*@
 
-@model CountryModel
+@model AreaSelectionViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -19,12 +20,16 @@
 <div class="wrapper" style="margin-top:10px;">
     <h1>OpenAQ</h1>
 
-    @Html.DropDownListFor(m => m.SelectedCountryCode, Model.CountryDropdownItems)
+    @*@Html.DropDownListFor(m => m.SelectedCountryCode, Model.CountryDropdownItems)*@
 
     @*@foreach (var item in Model.CountryInfo)
     {
         <h2>@item.Code</h2>
         <h2>@item.Name</h2>
     }*@
+
+    @Html.DropDownListFor(m => m.CountryModel.SelectedCountryCode, Model.CountryModel.CountryDropdownItems)
+
+    @Html.DropDownListFor(m => m.CityModel.SelectedCityName, Model.CityModel.CityDropdownItems)
 
 </div>
