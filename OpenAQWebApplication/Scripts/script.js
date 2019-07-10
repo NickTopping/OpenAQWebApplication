@@ -3,14 +3,14 @@
 });
 
 function loadHooks() {
-    $("#CountryModel_SelectedCountryCode").change(function () {
+    $("#countryModel_selectedCountryCode").change(function () {
         getCityInfo()
     });
 }
 
 function getCityInfo() {
 
-    var countryCode = $("#CountryModel_SelectedCountryCode option:selected").val();
+    var countryCode = $("#countryModel_selectedCountryCode option:selected").val();
 
     return $.ajax({
         url: 'Home/GetCitiesRequest',
@@ -30,7 +30,7 @@ function getCityInfo() {
 
 function getMeasurementsInfo() {
 
-    var cityName = $("#CountryModel_SelectedCountryCode option:selected").val();
+    var cityName = $("#countryModel_selectedCountryCode option:selected").val();
 
     return $.ajax({
         url: 'Home/GetCitiesRequest',

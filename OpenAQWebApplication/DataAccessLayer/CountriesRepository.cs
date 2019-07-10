@@ -15,7 +15,7 @@ namespace OpenAQWebApplication.Repositories
             var request = HomeController.ConfigureRequest();
             IRestResponse<CountryResult> response = client.Execute<CountryResult>(request);
 
-            return response.Data.Results;
+            return response.Data.results;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace OpenAQWebApplication.DataAccessLayer
             var request = HomeController.ConfigureRequest();
             IRestResponse<CityResult> response = client.Execute<CityResult>(request);
 
-            return response.Data.Results;
+            return response.Data.results;
         }
     }
 }

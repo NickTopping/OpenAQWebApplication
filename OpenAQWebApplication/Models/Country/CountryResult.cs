@@ -5,7 +5,7 @@ namespace OpenAQ.Models.Country
     public class CountryResult
     {
         public CountryResult() { }
-        public CountryMeta CountryMeta { get; set; }
-        public List<CountryInfo> Results { get; set; }
+        public CountryMeta countryMeta { get; set; }
+        public List<CountryInfo> results { get; set; }
     }
 }

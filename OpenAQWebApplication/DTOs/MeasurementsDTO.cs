@@ -4,13 +4,13 @@ namespace OpenAQ
 {
     public class MeasurementsDTO
     {
-        public string Location { get; set; }
-        public string Parameter { get; set; }
-        public float Value { get; set; }
-        public string Unit { get; set; }
-        public DateTime Utc { get; set; }
-        public DateTime Local { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public string location { get; set; }
+        public string parameter { get; set; }
+        public float value { get; set; }
+        public string unit { get; set; }
+        public DateTime utc { get; set; }
+        public DateTime local { get; set; }
+        public float latitude { get; set; }
+        public float longitude { get; set; }
     }
 }

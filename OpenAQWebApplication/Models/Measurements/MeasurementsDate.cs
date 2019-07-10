@@ -4,7 +4,7 @@ namespace OpenAQ.Models.Measurements
 {
     public class MeasurementsDate
     {
-        public DateTime Utc { get; set; }
-        public DateTime Local { get; set; }
+        public DateTime utc { get; set; }
+        public DateTime local { get; set; }
     }
 }

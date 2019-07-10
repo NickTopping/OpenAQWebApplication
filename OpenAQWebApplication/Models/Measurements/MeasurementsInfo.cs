@@ -5,14 +5,14 @@ namespace OpenAQ
     public class MeasurementsInfo
     {
         public MeasurementsInfo() { }
-        public string Location { get; set; }
-        public string Parameter { get; set; }
-        public MeasurementsDate Date { get; set; }
-        public float Value { get; set; }
-        public string Unit { get; set; }
-        public MeasurementsCoordinates Coordinates { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
+        public string location { get; set; }
+        public string parameter { get; set; }
+        public MeasurementsDate date { get; set; }
+        public float value { get; set; }
+        public string unit { get; set; }
+        public MeasurementsCoordinates coordinates { get; set; }
+        public string country { get; set; }
+        public string city { get; set; }
     }
 
 }

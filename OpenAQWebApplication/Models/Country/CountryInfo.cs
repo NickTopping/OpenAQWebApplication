@@ -4,11 +4,11 @@ namespace OpenAQ
     public class CountryInfo
     {
         public CountryInfo() { }
-        public string Name { get; set; }
-        public string Code { get; set; }
-        public int Cities { get; set; }
-        public int Locations { get; set; }
-        public int Count { get; set; }
+        public string name { get; set; }
+        public string code { get; set; }
+        public int cities { get; set; }
+        public int locations { get; set; }
+        public int count { get; set; }
     }
 
 }

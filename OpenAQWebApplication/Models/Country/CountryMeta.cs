@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace OpenAQ.Models.Country
 {
     public class CountryMeta
     {
         public CountryMeta() { }
-        public string Name { get; set; }
-        public string License { get; set; }
-        public string Website { get; set; }
-        public int Page { get; set; }
-        public int Limit { get; set; }
-        public int Found { get; set; }
+        public string name { get; set; }
+        public string license { get; set; }
+        public string website { get; set; }
+        public int page { get; set; }
+        public int limit { get; set; }
+        public int found { get; set; }
     }
 }

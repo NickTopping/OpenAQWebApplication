@@ -12,14 +12,14 @@ namespace OpenAQ.Mappers
             {
                 var measurementDTO = new MeasurementsDTO();
 
-                measurementDTO.Location = measurement.Location;
-                measurementDTO.Parameter = measurement.Parameter;
-                measurementDTO.Value = measurement.Value;
-                measurementDTO.Unit = measurement.Unit;
-                measurementDTO.Utc = measurement.Date.Utc;
-                measurementDTO.Local = measurement.Date.Local;
-                measurementDTO.Latitude = measurement.Coordinates.Latitude;
-                measurementDTO.Longitude = measurement.Coordinates.Longitude;
+                measurementDTO.location = measurement.location;
+                measurementDTO.parameter = measurement.parameter;
+                measurementDTO.value = measurement.value;
+                measurementDTO.unit = measurement.unit;
+                measurementDTO.utc = measurement.date.utc;
+                measurementDTO.local = measurement.date.local;
+                measurementDTO.latitude = measurement.coordinates.latitude;
+                measurementDTO.longitude = measurement.coordinates.longitude;
 
                 measurementsDTOList.Add(measurementDTO);
             }
