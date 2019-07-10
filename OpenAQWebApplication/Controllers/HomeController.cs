@@ -7,6 +7,7 @@ using OpenAQWebApplication.Models.City;
 using OpenAQWebApplication.ViewModels;
 using RestSharp;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace OpenAQWebApp.Controllers
@@ -29,7 +30,8 @@ namespace OpenAQWebApp.Controllers
                 CountryDropdownItems = countryDropdownList
             };
 
-            var selectedCountryCode = "AU";
+            //Make dynamic from countries index change event
+            var selectedCountryCode = GetCountriesRequest()?.First()?.Code; //Algeria
             var cityInfoList = GetCitiesRequest(selectedCountryCode);
             var cityDropdownList = new List<SelectListItem>();
 
@@ -53,7 +55,7 @@ namespace OpenAQWebApp.Controllers
             return View(areaSelectionViewModel);
         }
 
-        public static List<CountryInfo> GetCountriesRequest()
+        public static List<CountryInfo> GetCountriesRequest() //Make private or move to Model?
         {
             var client = new RestClient("https://api.openaq.org/v1/countries");
             var request = ConfigureRequest();
@@ -62,8 +64,11 @@ namespace OpenAQWebApp.Controllers
             return response.Data.Results;
         }
 
-        public static List<CityInfo> GetCitiesRequest(string countryCode)
+        //Change to actionresult and remove static, return as partial view (will require repo and changes to Index()
+        public static List<CityInfo> GetCitiesRequest(string countryCode) //Make private or move to Model?
         {
+            //If countryCode is null popup "no country found"
+
             var client = new RestClient($"https://api.openaq.org/v1/cities?country={countryCode}&order_by=city");
             var request = ConfigureRequest();
             IRestResponse<CityResult> response = client.Execute<CityResult>(request);
@@ -71,7 +76,7 @@ namespace OpenAQWebApp.Controllers
             return response.Data.Results;
         }
 
-        public static List<MeasurementsInfo> GetMeasurementsRequest(string cityName, string queryParameters = "", int limit = 100)
+        public static List<MeasurementsInfo> GetMeasurementsRequest(string cityName, string queryParameters = "", int limit = 100) //Make private or move to Model?
         {
             var client = new RestClient($"https://api.openaq.org/v1/measurements?city={cityName}&{queryParameters}&limit={limit}");
             var request = ConfigureRequest();
@@ -80,7 +85,7 @@ namespace OpenAQWebApp.Controllers
             return response.Data.Results;
         }
 
-        private static RestRequest ConfigureRequest()
+        private static RestRequest ConfigureRequest() //Move to Model?
         {
             var request = new RestRequest(Method.GET);
             request.AddHeader("cache-control", "no-cache");

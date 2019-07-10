@@ -1,0 +1,39 @@
+﻿@using OpenAQ;
+
+@model List<MeasurementsDTO>
+<div>
+    <table id="gridView" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Unit</th>
+                <th>Utc</th>
+                <th>Local</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<th scope="row">@item.Id</th>*@
+                    <td>@item.Location</td>
+                    <td>@item.Parameter</td>
+                    <td>@item.Value</td>
+                    <td>@item.Unit</td>
+                    <td>@item.Utc</td>
+                    <td>@item.Local</td>
+                    <td>@item.Latitude</td>
+                    <td>@item.Longitude</td>
+                    <td>
+                        @*<a data-value="@item.Id"
+                           href="javascript:void(0)" class="btnEdit">Edit</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
