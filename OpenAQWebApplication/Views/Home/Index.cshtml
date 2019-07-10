@@ -1,14 +1,8 @@
 ﻿@using OpenAQWebApplication.ViewModels;
-@using OpenAQWebApp.Controllers;
-@using OpenAQ.Mappers;
 
 @model AreaSelectionViewModel
 @{
     ViewBag.Title = "OpenAQ Readings";
-}
-
-@{
-    var measurementResults = HomeController.GetMeasurementsRequest("Canterbury", "");
 }
 
 <h2>Measurements by City</h2>
@@ -17,15 +11,15 @@
     <h1>OpenAQ</h1>
 
     <div id="ddlCountryModel">
-        @Html.DropDownListFor(m => m.CountryModel.SelectedCountryCode, Model.CountryModel.CountryDropdownItems)
+        @Html.DropDownListFor(m => m.countryModel.selectedCountryCode, Model.countryModel.countryDropdownItems)
     </div>
     <div id="ddlCityModel">
-        @Html.DropDownListFor(m => m.CityModel.SelectedCityName, Model.CityModel.CityDropdownItems)
+        @Html.DropDownListFor(m => m.cityModel.selectedCityName, Model.cityModel.cityDropdownItems)
     </div>
 
     @* Separate div for grid - bound to selected city name *@
     <div id="gridContainer" class="wrapper" style="margin-top:10px;">
-        @Html.Partial("Grid", MeasurementsMapper.MapMeasurements(measurementResults))
+        @Html.Partial("Grid", Model.measurementsDTOModel.measurementsDTO)
     </div>
 
 </div>

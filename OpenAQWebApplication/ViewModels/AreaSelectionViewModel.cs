@@ -1,11 +1,11 @@
-﻿using OpenAQWebApp.Models.Country;
-using OpenAQWebApplication.Models.City;
+﻿using OpenAQWebApplication.Models;
 
 namespace OpenAQWebApplication.ViewModels
 {
     public class AreaSelectionViewModel
     {
-        public CountryModel CountryModel { get; set; }
-        public CityModel CityModel { get; set; }
+        public CountryModel countryModel { get; set; }
+        public CityModel cityModel { get; set; }
+        public MeasurementsDTOModel measurementsDTOModel { get; set; }
     }
 }

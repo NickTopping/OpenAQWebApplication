@@ -1,9 +1,6 @@
-﻿using OpenAQ;
-using OpenAQ.Models.City;
-using OpenAQ.Models.Country;
-using OpenAQ.Models.Measurements;
-using OpenAQWebApp.Models.Country;
-using OpenAQWebApplication.Models.City;
+﻿using OpenAQWebApplication.DataAccessLayer;
+using OpenAQWebApplication.Models;
+using OpenAQWebApplication.Repositories;
 using OpenAQWebApplication.ViewModels;
 using RestSharp;
 using System.Collections.Generic;
@@ -14,9 +11,20 @@ namespace OpenAQWebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private ICountriesRepository _countriesRepository;
+        private ICitiesRepository _citiesRepository;
+        private IMeasurementsRepository _measurementsRepository;
+
+        public HomeController()
+        {
+            _countriesRepository = new CountriesRepository();
+            _citiesRepository = new CitiesRepository();
+            _measurementsRepository = new MeasurementsRepository();
+        }
+
         public ActionResult Index()
         {
-            var countryInfoList = GetCountriesRequest();
+            var countryInfoList = _countriesRepository.GetCountries();
             var countryDropdownList = new List<SelectListItem>();
 
             foreach (var country in countryInfoList)
@@ -26,13 +34,13 @@ namespace OpenAQWebApp.Controllers
 
             CountryModel countryModel = new CountryModel
             {
-                CountryInfo = countryInfoList,
-                CountryDropdownItems = countryDropdownList
+                countryInfo = countryInfoList,
+                countryDropdownItems = countryDropdownList
             };
 
             //Make dynamic from countries index change event
-            var selectedCountryCode = GetCountriesRequest()?.First()?.Code; //Algeria
-            var cityInfoList = GetCitiesRequest(selectedCountryCode);
+            var selectedCountryCode = _countriesRepository.GetCountries()?.First()?.Code; //Algeria
+            var cityInfoList = _citiesRepository.GetCitiesRequest(selectedCountryCode);
             var cityDropdownList = new List<SelectListItem>();
 
             foreach (var city in cityInfoList)
@@ -42,50 +50,40 @@ namespace OpenAQWebApp.Controllers
 
             CityModel cityModel = new CityModel
             {
-                CityInfo = cityInfoList,
-                CityDropdownItems = cityDropdownList
+                cityInfo = cityInfoList,
+                cityDropdownItems = cityDropdownList
             };
+
+            var selectedCityName = cityInfoList.FirstOrDefault().City;
+            var measurementsDTOList = _measurementsRepository.GetMeasurementsRequest(selectedCityName);
 
             AreaSelectionViewModel areaSelectionViewModel = new AreaSelectionViewModel()
             {
-                CountryModel = countryModel,
-                CityModel = cityModel
+                countryModel = countryModel,
+                cityModel = cityModel
             };
 
             return View(areaSelectionViewModel);
         }
 
-        public static List<CountryInfo> GetCountriesRequest() //Make private or move to Model?
-        {
-            var client = new RestClient("https://api.openaq.org/v1/countries");
-            var request = ConfigureRequest();
-            IRestResponse<CountryResult> response = client.Execute<CountryResult>(request);
-
-            return response.Data.Results;
-        }
-
         //Change to actionresult and remove static, return as partial view (will require repo and changes to Index()
-        public static List<CityInfo> GetCitiesRequest(string countryCode) //Make private or move to Model?
+        //Call repository (with this method inside) in new method here that uses action result
+        public ActionResult GetCountriesRequest()
         {
-            //If countryCode is null popup "no country found"
-
-            var client = new RestClient($"https://api.openaq.org/v1/cities?country={countryCode}&order_by=city");
-            var request = ConfigureRequest();
-            IRestResponse<CityResult> response = client.Execute<CityResult>(request);
-
-            return response.Data.Results;
+            return PartialView(_countriesRepository.GetCountries());
         }
 
-        public static List<MeasurementsInfo> GetMeasurementsRequest(string cityName, string queryParameters = "", int limit = 100) //Make private or move to Model?
+        public ActionResult GetCitiesRequest(string countryCode)
         {
-            var client = new RestClient($"https://api.openaq.org/v1/measurements?city={cityName}&{queryParameters}&limit={limit}");
-            var request = ConfigureRequest();
-            IRestResponse<MeasurementsResult> response = client.Execute<MeasurementsResult>(request);
-
-            return response.Data.Results;
+            return PartialView(_citiesRepository.GetCitiesRequest(countryCode));
         }
 
-        private static RestRequest ConfigureRequest() //Move to Model?
+        public ActionResult GetMeasurementsRequest(string cityName, string queryParameters = "", int limit = 100)
+        {
+            return PartialView(_measurementsRepository.GetMeasurementsRequest(cityName, queryParameters, limit));
+        }
+
+        public static RestRequest ConfigureRequest() //Move? Consumed by all repositories.
         {
             var request = new RestRequest(Method.GET);
             request.AddHeader("cache-control", "no-cache");

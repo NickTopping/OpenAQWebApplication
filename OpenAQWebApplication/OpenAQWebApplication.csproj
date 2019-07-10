@@ -151,6 +151,11 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataAccessLayer\CitiesRepository.cs" />
+    <Compile Include="DataAccessLayer\Interfaces\ICitiesRepository.cs" />
+    <Compile Include="DataAccessLayer\Interfaces\ICountriesRepository.cs" />
+    <Compile Include="DataAccessLayer\Interfaces\IMeasurementsRepository.cs" />
+    <Compile Include="DataAccessLayer\MeasurementsRepository.cs" />
     <Compile Include="DTOs\MeasurementsDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,9 +173,10 @@
     <Compile Include="Models\Measurements\MeasurementsDate.cs" />
     <Compile Include="Models\Measurements\MeasurementsInfo.cs" />
     <Compile Include="Models\Measurements\MeasurementsMeta.cs" />
+    <Compile Include="Models\Measurements\MeasurementsDTOModel.cs" />
     <Compile Include="Models\Measurements\MeasurementsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CountriesRepository.cs" />
+    <Compile Include="DataAccessLayer\CountriesRepository.cs" />
     <Compile Include="ViewModels\AreaSelectionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
