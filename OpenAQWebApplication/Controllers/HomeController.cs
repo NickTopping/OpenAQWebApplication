@@ -81,12 +81,6 @@ namespace OpenAQWebApp.Controllers
 
         public ActionResult GetCitiesRequest(string countryCode)
         {
-            //var x = _citiesRepository.GetCitiesRequest(countryCode);
-            //Need new partial view for ddl??? Render new partial view in Index?
-            //Still need to pass the same data into the index anyway?
-            //Update ViewModel???
-            //return PartialView("Index", x);
-
             return Json(_citiesRepository.GetCitiesRequest(countryCode), JsonRequestBehavior.AllowGet);
         }
 

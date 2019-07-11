@@ -18,21 +18,17 @@ function getCityInfo() {
             countryCode: countryCode
         },
         contentType: "application/json; charset=utf-8",
-        //dataType: "json",
         type: 'GET',
         success: function (response) {
-            //alert("Success");
-            //$("#ddlCityModel").html(response);
             //loadHooks(); use if button added
-            $("#ddlCityModel").empty();
+            $("#cityModel_selectedCityName").empty();
             $.each(response, function (i, item) {
-                $("#ddlCityModel").append($("<option>").text(item.text).val(item.Value));
+                $("#cityModel_selectedCityName").append($('<option></option>').text(item.city).val(item.city));
             });
             
             console.log(response);
         },
         error: function (response) {
-            //alert(response);
             console.log(response);
         }
     })
@@ -40,20 +36,23 @@ function getCityInfo() {
 
 function getMeasurementsInfo() {
 
-    var cityName = $("#countryModel_selectedCountryCode option:selected").val();
+    var cityName = $("#cityModel_selectedCityName option:selected").val();
 
     return $.ajax({
-        url: 'Home/GetCitiesRequest',
+        url: 'Home/GetMeasurementsRequest',
         data: {
-            countryCode: countryCode
+            cityName: cityName
         },
         type: 'GET',
         success: function (response) {
-            $("#ddlCityModel").html(response);
             //loadHooks(); use if button added
+            $("#cityModel_selectedCityName").empty();
+            $.each(response, function (i, item) {
+                $("#cityModel_selectedCityName").append($('<option></option>').text(item.city).val(item.city));
+            });           
         },
         error: function (response) {
-            alert(response);
+            console.log(response);
         }
     })
 }
