@@ -17,8 +17,7 @@
         @Html.DropDownListFor(m => m.cityModel.selectedCityName, Model.cityModel.cityDropdownItems)
     </div>
 
-    @* Separate div for grid - bound to selected city name *@
-    <div id="gridContainer" class="wrapper" style="margin-top:10px;">
+    <div id="gridContainer" style="margin-top:10px;">
         @Html.Partial("Grid", Model.measurementsDTOModel.measurementsDTO)
     </div>
 

@@ -6,6 +6,10 @@ function loadHooks() {
     $("#countryModel_selectedCountryCode").change(function () {
         getCityInfo()
     });
+
+    $("#cityModel_selectedCityName").change(function () {
+        getMeasurementsInfo()
+    });
 }
 
 function getCityInfo() {
@@ -37,18 +41,29 @@ function getCityInfo() {
 function getMeasurementsInfo() {
 
     var cityName = $("#cityModel_selectedCityName option:selected").val();
+    var table = $('#gridView > tbody');
 
     return $.ajax({
-        url: 'Home/GetMeasurementsRequest',
+        url: '/Home/GetMeasurementsRequest',
         data: {
             cityName: cityName
         },
         type: 'GET',
         success: function (response) {
+
+            console.log(response);
             //loadHooks(); use if button added
-            $("#cityModel_selectedCityName").empty();
-            $.each(response, function (i, item) {
-                $("#cityModel_selectedCityName").append($('<option></option>').text(item.city).val(item.city));
+            $(table).empty();
+            $.each(response, function (a, b) {
+
+                (table).append("<tr><td>" + b.location + "</td>" +
+                                   "<td>" + b.parameter + "</td>" +
+                                   "<td>" + b.value + "</td>" +
+                                   "<td>" + b.unit + "</td>" +
+                                   "<td>" + b.utc + "</td>" +
+                                   "<td>" + b.local + "</td>" +
+                                   "<td>" + b.latitude + "</td>" +
+                                   "<td>" + b.longitude + "</td></tr>");                                   
             });           
         },
         error: function (response) {
