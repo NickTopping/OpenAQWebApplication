@@ -16,8 +16,8 @@ namespace OpenAQ.Mappers
                 measurementDTO.parameter = measurement.parameter;
                 measurementDTO.value = measurement.value;
                 measurementDTO.unit = measurement.unit;
-                measurementDTO.utc = measurement.date.utc;
-                measurementDTO.local = measurement.date.local;
+                measurementDTO.utc = measurement.date.utc.ToString();
+                measurementDTO.local = measurement.date.local.ToString();
                 measurementDTO.latitude = measurement.coordinates.latitude;
                 measurementDTO.longitude = measurement.coordinates.longitude;
 

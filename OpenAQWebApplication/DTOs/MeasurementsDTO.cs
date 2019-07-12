@@ -8,8 +8,8 @@ namespace OpenAQ
         public string parameter { get; set; }
         public float value { get; set; }
         public string unit { get; set; }
-        public DateTime utc { get; set; }
-        public DateTime local { get; set; }
+        public string utc { get; set; }
+        public string local { get; set; }
         public float latitude { get; set; }
         public float longitude { get; set; }
     }
