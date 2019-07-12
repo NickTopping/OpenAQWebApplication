@@ -9,16 +9,21 @@
 
 <div class="wrapper" style="margin-top:10px;">
     <h1>OpenAQ</h1>
+    <div>
+        <button id="filterBtn" type="button" class="btn btn-info btn-lg">Filter Data</button> @*<i class="fas fa-filter"></i>*@
+    </div>
 
-    <div id="ddlCountryModel"> @*rename*@
+    <div id="ddlCountryModel" class="dropdown"> @*rename*@
         @Html.DropDownListFor(m => m.countryModel.selectedCountryCode, Model.countryModel.countryDropdownItems)
     </div>
-    <div id="ddlCityModel">@*rename*@
+    <div id="ddlCityModel" class="dropdown">@*rename*@
         @Html.DropDownListFor(m => m.cityModel.selectedCityName, Model.cityModel.cityDropdownItems)
     </div>
 
     <div id="gridContainer" style="margin-top:10px;">
         @Html.Partial("Grid", Model.measurementsDTOModel.measurementsDTO)
     </div>
+
+    @Html.Partial("Filter") @*Hidden until button is clicked*@
 
 </div>

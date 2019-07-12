@@ -1,4 +1,4 @@
-﻿@*@using HotelBooking;
+﻿@*@using HotelBooking; COULD HAVE PROBLEMS CONVERTING TO DATE AS UTC/LOCAL IN DTO ARE NOW STRINGS*@ 
 
 <!-- The Modal -->
 <div id="filterModal" class="modal">
@@ -7,20 +7,15 @@
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
-            <h2>Filter Rooms</h2>
+            <h2>Filter Measurements</h2>
         </div>
         <div class="modal-body container">
-            Number: <input type="text" id="txtRoomNumber" class="form-control" autocomplete="disabled"><br>
-            Type: @Html.DropDownList("Type",
-                                        EnumHelper.GetSelectList(typeof(RoomType)), /*Need to hide "Select Room Type" option*/
-                                        "Select Room Type",
-                                        new { @id = "ddlType", @class = "form-control" })<br>
-            Status: @Html.DropDownList("Status",
-                                        EnumHelper.GetSelectList(typeof(RoomStatus)), /*Need to hide "Select Room Type" option*/
-                                        "Select Room Status", //Any here, then remove Any from enums???
-                                        new { @id = "ddlStatus", @class = "form-control" })<br>
+            Number of Rows Displayed: <input type="text" id="txtRows" class="form-control" autocomplete="disabled"><br>
+            Date From: <input type="date" id="dtpFrom">
+            Date To: <input type="date" id="dtpTo">      
+            Parameters: <input type="checkbox" id="clbParameters">      
             <input type="submit" id="btnFilter" class="btn btn-info btn-lg" onclick="filterRooms()" value="Search">
         </div>
         <div class="modal-footer"></div>
     </div>
-</div>*@
+</div>

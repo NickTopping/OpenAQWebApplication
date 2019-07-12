@@ -10,6 +10,20 @@ function loadHooks() {
     $("#cityModel_selectedCityName").change(function () {
         getMeasurementsInfo()
     });
+
+    //$(".searchButton").click(function () {
+    //    var roomId = $(this).parent().attr("roomId");
+    //    getRoomInfo(roomId);
+    //});
+
+    $(".close").click(function () {
+        $(this).closest('.modal').hide();
+        $("#filterModal").hide();
+    });
+
+    $("#filterBtn").click(function () {
+        $("#filterModal").show();
+    });
 }
 
 function getCityInfo() {
@@ -24,7 +38,7 @@ function getCityInfo() {
         contentType: "application/json; charset=utf-8",
         type: 'GET',
         success: function (response) {
-            //loadHooks(); use if button added
+            //loadHooks(); //use if button added
             $("#cityModel_selectedCityName").empty();
             $.each(response, function (i, item) {
                 $("#cityModel_selectedCityName").append($('<option></option>').text(item.city).val(item.city));
@@ -52,10 +66,10 @@ function getMeasurementsInfo() {
         success: function (response) {
 
             console.log(response);
-            //loadHooks(); use if button added
+            //loadHooks(); //use if button added
             $(table).empty();
             $.each(response, function (a, b) {
-
+                $('tr:odd').css('background-color', '#afdeee');
                 (table).append("<tr><td>" + b.location + "</td>" +
                                    "<td>" + b.parameter + "</td>" +
                                    "<td>" + b.value + "</td>" +
@@ -68,6 +82,28 @@ function getMeasurementsInfo() {
         },
         error: function (response) {
             console.log(response);
+        }
+    })
+}
+
+function filterMeasurements() {
+    var number = $("#txtRoomNumber").val();
+    var type = $("#ddlType option:selected").val();
+    var status = $("#ddlStatus option:selected").val();
+
+    $.ajax({
+        url: '/Room/FilterRooms',
+        data: {
+            roomNumber: number,
+            type: type,
+            status: status
+        },
+        type: 'GET',
+        success: function (response) {
+            $("#roomContainer").html(response);
+        },
+        error: function (response) {
+            alert(response);
         }
     })
 }
