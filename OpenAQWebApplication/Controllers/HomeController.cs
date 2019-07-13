@@ -28,9 +28,12 @@ namespace OpenAQWebApp.Controllers
             var countryInfoList = _countriesRepository.GetCountries();
             var countryDropdownList = new List<SelectListItem>();
 
-            foreach (var country in countryInfoList)
+            if (countryInfoList != null)
             {
-                countryDropdownList.Add(new SelectListItem() { Text = country.name, Value = country.code });
+                foreach (var country in countryInfoList)
+                {
+                    countryDropdownList.Add(new SelectListItem() { Text = country.name, Value = country.code });
+                }
             }
 
             CountryModel countryModel = new CountryModel
@@ -43,9 +46,12 @@ namespace OpenAQWebApp.Controllers
             var cityInfoList = _citiesRepository.GetCitiesRequest(selectedCountryCode);
             var cityDropdownList = new List<SelectListItem>();
 
-            foreach (var city in cityInfoList)
+            if (cityInfoList != null)
             {
-                cityDropdownList.Add(new SelectListItem() { Text = city.city, Value = city.city });
+                foreach (var city in cityInfoList)
+                {
+                    cityDropdownList.Add(new SelectListItem() { Text = city.city, Value = city.city });
+                }
             }
 
             CityModel cityModel = new CityModel
