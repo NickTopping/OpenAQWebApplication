@@ -91,7 +91,7 @@ namespace OpenAQWebApp.Controllers
 
         public ActionResult GetMeasurementsRequest(string cityName, string queryParameters = "", int limit = 100)
         {
-            var measurementsInfoList = _measurementsRepository.GetMeasurementsRequest(cityName);
+            var measurementsInfoList = _measurementsRepository.GetMeasurementsRequest(cityName, queryParameters: queryParameters, limit: limit);
             var measurementsDTOList = MeasurementsMapper.MapMeasurements(measurementsInfoList);
 
             return Json(measurementsDTOList, JsonRequestBehavior.AllowGet);

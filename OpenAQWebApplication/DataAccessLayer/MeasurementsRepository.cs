@@ -9,7 +9,7 @@ namespace OpenAQWebApplication.DataAccessLayer
 {
     public class MeasurementsRepository : IMeasurementsRepository
     {
-        public List<MeasurementsInfo> GetMeasurementsRequest(string cityName, string queryParameters = "", int limit = 100)
+        public List<MeasurementsInfo> GetMeasurementsRequest(string cityName, string queryParameters, int limit)
         {
             try
             {

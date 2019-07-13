@@ -11,10 +11,10 @@ function loadHooks() {
         getMeasurementsInfo()
     });
 
-    //$(".searchButton").click(function () {
-    //    var roomId = $(this).parent().attr("roomId");
-    //    getRoomInfo(roomId);
-    //});
+    $("#btnFilter").click(function () {
+        //var roomId = $(this).parent().attr("roomId");
+        getMeasurementsInfo();
+    });
 
     $(".close").click(function () {
         $(this).closest('.modal').hide();
@@ -56,11 +56,13 @@ function getMeasurementsInfo() {
 
     var cityName = $("#cityModel_selectedCityName option:selected").val();
     var table = $('#gridView > tbody');
+    var rowLimit = $("#txtRows").val();
 
     return $.ajax({
         url: '/Home/GetMeasurementsRequest',
         data: {
-            cityName: cityName
+            cityName: cityName,
+            limit: rowLimit
         },
         type: 'GET',
         success: function (response) {
