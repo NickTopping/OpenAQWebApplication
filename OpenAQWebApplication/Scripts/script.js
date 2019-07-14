@@ -12,8 +12,8 @@ function loadHooks() {
     });
 
     $("#btnFilter").click(function () {
-        //var roomId = $(this).parent().attr("roomId");
         getMeasurementsInfo();
+        $('#filterModal').hide();
     });
 
     $(".close").click(function () {
@@ -43,7 +43,7 @@ function getCityInfo() {
             $.each(response, function (i, item) {
                 $("#cityModel_selectedCityName").append($('<option></option>').text(item.city).val(item.city));
             });
-            
+
             console.log(response);
         },
         error: function (response) {
@@ -55,13 +55,16 @@ function getCityInfo() {
 function getMeasurementsInfo() {
 
     var cityName = $("#cityModel_selectedCityName option:selected").val();
-    var table = $('#gridView > tbody');
     var rowLimit = $("#txtRows").val();
+    var table = $('#gridView > tbody');
+
+    var parameters = filterMeasurements();
 
     return $.ajax({
         url: '/Home/GetMeasurementsRequest',
         data: {
             cityName: cityName,
+            queryParameters: parameters,
             limit: rowLimit
         },
         type: 'GET',
@@ -71,7 +74,9 @@ function getMeasurementsInfo() {
             //loadHooks(); //use if button added
             $(table).empty();
             $.each(response, function (a, b) {
+
                 $('tr:odd').css('background-color', '#afdeee');
+
                 (table).append("<tr><td>" + b.location + "</td>" +
                                    "<td>" + b.parameter + "</td>" +
                                    "<td>" + b.value + "</td>" +
@@ -79,8 +84,8 @@ function getMeasurementsInfo() {
                                    "<td>" + b.utc + "</td>" +
                                    "<td>" + b.local + "</td>" +
                                    "<td>" + b.latitude + "</td>" +
-                                   "<td>" + b.longitude + "</td></tr>");                                   
-            });           
+                                   "<td>" + b.longitude + "</td></tr>");
+            });
         },
         error: function (response) {
             console.log(response);
@@ -89,23 +94,40 @@ function getMeasurementsInfo() {
 }
 
 function filterMeasurements() {
-    var number = $("#txtRoomNumber").val();
-    var type = $("#ddlType option:selected").val();
-    var status = $("#ddlStatus option:selected").val();
+    
+    var dateFrom = 'date_from=' + $("#dtpFrom").val() + '&';
+    var dateTo = 'date_to=' + $("#dtpTo").val() + '&';
+    var airParameters = "";
 
-    $.ajax({
-        url: '/Room/FilterRooms',
-        data: {
-            roomNumber: number,
-            type: type,
-            status: status
-        },
-        type: 'GET',
-        success: function (response) {
-            $("#roomContainer").html(response);
-        },
-        error: function (response) {
-            alert(response);
-        }
-    })
+    if ($('#cbParametersPm25').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersPm25").attr("name") + '&';
+    }
+
+    if ($('#cbParametersPm10').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersPm10").attr("name") + '&';
+    }
+
+    if ($('#cbParametersSo2').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersSo2").attr("name") + '&';
+    }
+
+    if ($('#cbParametersNo2').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersNo2").attr("name") + '&';
+    }
+
+    if ($('#cbParametersO3').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersO3").attr("name") + '&';
+    }
+
+    if ($('#cbParametersCo').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersCo").attr("name") + '&';
+    }
+
+    if ($('#cbParametersBc').is(":checked")) {
+        airParameters += 'parameter[]=' + $("#cbParametersBc").attr("name") + '&';
+    }
+
+    var parametersString = dateFrom + dateTo + airParameters;
+
+    return parametersString;
 }

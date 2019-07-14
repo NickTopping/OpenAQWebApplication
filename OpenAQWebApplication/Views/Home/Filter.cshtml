@@ -1,6 +1,4 @@
-﻿@*@using HotelBooking; COULD HAVE PROBLEMS CONVERTING TO DATE AS UTC/LOCAL IN DTO ARE NOW STRINGS*@ 
-
-<!-- The Modal -->
+﻿<!-- The Modal -->
 <div id="filterModal" class="modal">
 
     <!-- Modal content -->
@@ -12,9 +10,17 @@
         <div class="modal-body container">
             Number of Rows Displayed: <input type="text" id="txtRows" class="form-control" autocomplete="disabled"><br>
             Date From: <input type="date" id="dtpFrom">
-            Date To: <input type="date" id="dtpTo">      
-            Parameters: <input type="checkbox" id="clbParameters">      
-            <input type="submit" id="btnFilter" class="btn btn-info btn-lg" value="Search"> @*onclick="filterRooms()"*@
+            Date To: <input type="date" id="dtpTo"> 
+            <div> @*class="checkbox"*@
+                pm25: <input type="checkbox" id="cbParametersPm25" name="pm25">
+                pm10: <input type="checkbox" id="cbParametersPm10" name="pm10">
+                so2: <input type="checkbox" id="cbParametersSo2" name="so2">
+                no2: <input type="checkbox" id="cbParametersNo2" name="no2">
+                o3: <input type="checkbox" id="cbParametersO3" name="o3">
+                co: <input type="checkbox" id="cbParametersCo" name="co">
+                bc: <input type="checkbox" id="cbParametersBc" name="bc">
+            </div>     
+            <input type="submit" id="btnFilter" class="btn btn-info btn-lg" value="Search">
         </div>
         <div class="modal-footer"></div>
     </div>

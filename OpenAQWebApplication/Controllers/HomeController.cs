@@ -79,11 +79,6 @@ namespace OpenAQWebApp.Controllers
             return View(areaSelectionViewModel);
         }
 
-        //public ActionResult GetCountriesRequest() //unused
-        //{
-        //    return PartialView(_countriesRepository.GetCountries());
-        //}
-
         public ActionResult GetCitiesRequest(string countryCode)
         {
             return Json(_citiesRepository.GetCitiesRequest(countryCode), JsonRequestBehavior.AllowGet);
@@ -110,5 +105,6 @@ namespace OpenAQWebApp.Controllers
 
             return request;
         }
+        
     }
 }
