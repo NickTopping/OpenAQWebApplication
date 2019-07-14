@@ -42,7 +42,7 @@ namespace OpenAQWebApp.Controllers
                 countryDropdownItems = countryDropdownList
             };
 
-            var selectedCountryCode = _countriesRepository.GetCountries()?.First()?.code; //Algeria
+            var selectedCountryCode = _countriesRepository.GetCountries()?.First()?.code;
             var cityInfoList = _citiesRepository.GetCitiesRequest(selectedCountryCode);
             var cityDropdownList = new List<SelectListItem>();
 
@@ -89,7 +89,7 @@ namespace OpenAQWebApp.Controllers
             var measurementsInfoList = _measurementsRepository.GetMeasurementsRequest(cityName, queryParameters: queryParameters, limit: limit);
             var measurementsDTOList = MeasurementsMapper.MapMeasurements(measurementsInfoList);
 
-            return Json(measurementsDTOList, JsonRequestBehavior.AllowGet);
+            return PartialView("Grid", measurementsDTOList);
         }
 
         public static RestRequest ConfigureRequest()

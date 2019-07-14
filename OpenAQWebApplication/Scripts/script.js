@@ -38,13 +38,13 @@ function getCityInfo() {
         contentType: "application/json; charset=utf-8",
         type: 'GET',
         success: function (response) {
-            //loadHooks(); //use if button added
+
             $("#cityModel_selectedCityName").empty();
             $.each(response, function (i, item) {
                 $("#cityModel_selectedCityName").append($('<option></option>').text(item.city).val(item.city));
             });
 
-            console.log(response);
+            getMeasurementsInfo()
         },
         error: function (response) {
             console.log(response);
@@ -70,22 +70,7 @@ function getMeasurementsInfo() {
         type: 'GET',
         success: function (response) {
 
-            console.log(response);
-            //loadHooks(); //use if button added
-            $(table).empty();
-            $.each(response, function (a, b) {
-
-                $('tr:odd').css('background-color', '#afdeee');
-
-                (table).append("<tr><td>" + b.location + "</td>" +
-                                   "<td>" + b.parameter + "</td>" +
-                                   "<td>" + b.value + "</td>" +
-                                   "<td>" + b.unit + "</td>" +
-                                   "<td>" + b.utc + "</td>" +
-                                   "<td>" + b.local + "</td>" +
-                                   "<td>" + b.latitude + "</td>" +
-                                   "<td>" + b.longitude + "</td></tr>");
-            });
+            $("#gridContainer").html(response);
         },
         error: function (response) {
             console.log(response);
@@ -94,12 +79,20 @@ function getMeasurementsInfo() {
 }
 
 function filterMeasurements() {
-    
-    var dateFrom = 'date_from=' + $("#dtpFrom").val() + '&';
-    var dateTo = 'date_to=' + $("#dtpTo").val() + '&';
+
+    var dateFrom = "";
+    var dateTo = "";
     var airParameters = "";
 
-    if ($('#cbParametersPm25').is(":checked")) {
+    if ($("#dtpFrom").val() != "") {
+        dateFrom = 'date_from=' + $("#dtpFrom").val() + 'T00:00:00&'; //if dateFrom <> default...
+    }
+
+    if ($("#dtpFrom").val() != "") {
+        dateTo = 'date_to=' + $("#dtpTo").val() + 'T23:59:59&';
+    }
+    
+    if ($('#cbParametersPm25').is(":checked")) { 
         airParameters += 'parameter[]=' + $("#cbParametersPm25").attr("name") + '&';
     }
 

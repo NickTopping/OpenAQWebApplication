@@ -17,13 +17,13 @@
         @Html.DropDownListFor(m => m.cityModel.selectedCityName, Model.cityModel.cityDropdownItems)
     </div>
     <div>
-        <button id="filterBtn" type="button" class="btn btn-info btn-lg btn-position">Filter Data</button> @*icon: <i class="fas fa-filter"></i>*@
+        <button id="filterBtn" type="button" class="btn btn-info btn-lg btn-position">Filter Data</button>
     </div>
 
     <div id="gridContainer" style="margin-top:10px;">
         @Html.Partial("Grid", Model.measurementsDTOModel.measurementsDTO)
     </div>
 
-    @Html.Partial("Filter") @*Hidden until button is clicked*@
+    @Html.Partial("Filter")
 
 </div>

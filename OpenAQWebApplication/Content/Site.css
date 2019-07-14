@@ -52,8 +52,17 @@ textarea {
     margin-bottom: 10px !important;
 }
 
-.checkbox{
+.parametersCheckbox{
     margin-top: 10px;
+    margin-bottom: 10px;
+}
+.parametersCheckbox > input{
+    margin-right: 5px !important;
+}
+
+
+.gridStyling > tbody > tr:nth-child(odd) {
+    background-color: #afdeee !important;
 }
 
 /* The Modal (background) */
