@@ -7,10 +7,10 @@
 
 <div class="wrapper">
 
-    <div id="ddlCountryModel" class="dropdown"> @*rename*@
+    <div id="ddlCountryModel" class="dropdown">
         @Html.DropDownListFor(m => m.countryModel.selectedCountryCode, Model.countryModel.countryDropdownItems)
     </div>
-    <div id="ddlCityModel" class="dropdown">@*rename*@
+    <div id="ddlCityModel" class="dropdown">
         @Html.DropDownListFor(m => m.cityModel.selectedCityName, Model.cityModel.cityDropdownItems)
     </div>
     <div>

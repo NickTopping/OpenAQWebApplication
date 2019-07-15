@@ -85,7 +85,7 @@ function filterMeasurements() {
     var airParameters = "";
 
     if ($("#dtpFrom").val() != "") {
-        dateFrom = 'date_from=' + $("#dtpFrom").val() + 'T00:00:00&'; //if dateFrom <> default...
+        dateFrom = 'date_from=' + $("#dtpFrom").val() + 'T00:00:00&';
     }
 
     if ($("#dtpFrom").val() != "") {
