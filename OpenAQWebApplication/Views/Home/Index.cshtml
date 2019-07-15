@@ -5,10 +5,7 @@
     ViewBag.Title = "OpenAQ Readings";
 }
 
-<h2>Measurements by City</h2>
-
-<div class="wrapper" style="margin-top:10px;">
-    <h1>OpenAQ</h1>
+<div class="wrapper">
 
     <div id="ddlCountryModel" class="dropdown"> @*rename*@
         @Html.DropDownListFor(m => m.countryModel.selectedCountryCode, Model.countryModel.countryDropdownItems)
@@ -17,10 +14,10 @@
         @Html.DropDownListFor(m => m.cityModel.selectedCityName, Model.cityModel.cityDropdownItems)
     </div>
     <div>
-        <button id="filterBtn" type="button" class="btn btn-info btn-lg btn-position">Filter Data</button>
+        <button id="filterBtn" type="button" class="btn btn-info btn-lg btn-position"><i class="fas fa-filter"></i>&nbsp; Filter Data</button>
     </div>
 
-    <div id="gridContainer" style="margin-top:10px;">
+    <div id="gridContainer">
         @Html.Partial("Grid", Model.measurementsDTOModel.measurementsDTO)
     </div>
 
